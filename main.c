@@ -1011,7 +1011,7 @@ void *MinerThreadProc(void *Info)
 		GlobalStatus.ThreadTimes[MTInfo->ThreadID] = Seconds;
 		pthread_mutex_unlock(&StatusMutex);
 		
-		Log(LOG_INFO, "Thread %d, GPU ID %d, GPU Type: %s: %.02fMH/s\n", MTInfo->ThreadID, *MTInfo->AlgoCtx.GPUIdxs, MTInfo->PlatformContext->Devices[*MTInfo->AlgoCtx.GPUIdxs].DeviceName, ((MTInfo->AlgoCtx.Nonce - PrevNonce)) / (Seconds * 1e6));
+		Log(LOG_INFO, "Thread %d, GPU ID %d, GPU Type: %s: %.02fMH/s, Accepted: %d, Rejected: %d\n", MTInfo->ThreadID, *MTInfo->AlgoCtx.GPUIdxs, MTInfo->PlatformContext->Devices[*MTInfo->AlgoCtx.GPUIdxs].DeviceName, ((MTInfo->AlgoCtx.Nonce - PrevNonce)) / (Seconds * 1e6),GlobalStatus.SolvedWork - GlobalStatus.RejectedWork,GlobalStatus.RejectedWork);
 	}
 	
 	// Cleanup function called here
